@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { getTheme, Palette } from './src/constants/theme';
+import { Palette, theme } from './src/constants/theme';
 import { AuthResultScreen } from './src/screens/AuthResultScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 
@@ -15,14 +15,12 @@ type Screen = 'settings' | 'deleted' | 'loggedOut';
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('settings');
-  const [isDark, setIsDark] = useState(false);
 
   const [fontsLoaded] = useFonts({
     SpaceMono_400Regular,
     SpaceMono_700Bold,
   });
 
-  const theme = getTheme(isDark);
   const fontFamily = fontsLoaded ? 'SpaceMono_700Bold' : undefined;
 
   if (!fontsLoaded) {
@@ -35,12 +33,9 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style={theme.statusBar} />
+      <StatusBar style="dark" />
       {screen === 'settings' ? (
         <SettingsScreen
-          isDark={isDark}
-          onToggleDark={setIsDark}
-          theme={theme}
           fontFamily={fontFamily!}
           onDeleteAccount={() => setScreen('deleted')}
           onLogout={() => setScreen('loggedOut')}
@@ -48,7 +43,6 @@ export default function App() {
       ) : (
         <AuthResultScreen
           variant={screen === 'deleted' ? 'deleted' : 'loggedOut'}
-          theme={theme}
           fontFamily={fontFamily!}
           onLogin={() => setScreen('settings')}
           onRegister={() => setScreen('settings')}

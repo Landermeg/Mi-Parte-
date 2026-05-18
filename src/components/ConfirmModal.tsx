@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { AppTheme, Palette } from '../constants/theme';
+import { Palette, theme } from '../constants/theme';
 
 type Props = {
   visible: boolean;
@@ -15,7 +15,6 @@ type Props = {
   confirmLabel: string;
   onCancel: () => void;
   onConfirm: () => void;
-  theme: AppTheme;
   fontFamily: string;
 };
 
@@ -27,7 +26,6 @@ export function ConfirmModal({
   confirmLabel,
   onCancel,
   onConfirm,
-  theme,
   fontFamily,
 }: Props) {
   return (

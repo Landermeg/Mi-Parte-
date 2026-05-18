@@ -1,10 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SchoolTaskLogo } from '../components/SchoolTaskLogo';
-import { AppTheme, Palette } from '../constants/theme';
+import { Palette, theme } from '../constants/theme';
 
 type Props = {
   variant: 'deleted' | 'loggedOut';
-  theme: AppTheme;
   fontFamily: string;
   onLogin: () => void;
   onRegister: () => void;
@@ -12,7 +11,6 @@ type Props = {
 
 export function AuthResultScreen({
   variant,
-  theme,
   fontFamily,
   onLogin,
   onRegister,
@@ -24,7 +22,7 @@ export function AuthResultScreen({
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <SchoolTaskLogo size={110} labelColor={theme.text} />
+      <SchoolTaskLogo width={220} />
       <Text style={[styles.title, { color: theme.text, fontFamily }]}>{title}</Text>
       <Text style={[styles.subtitle, { color: theme.textSecondary, fontFamily }]}>
         INICIA SESIÓN O REGÍSTRATE PARA ACCEDER

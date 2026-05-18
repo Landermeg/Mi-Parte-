@@ -11,12 +11,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { SchoolTaskLogo } from '../components/SchoolTaskLogo';
-import { AppTheme, Palette } from '../constants/theme';
+import { Palette, theme } from '../constants/theme';
 
 type Props = {
-  isDark: boolean;
-  onToggleDark: (value: boolean) => void;
-  theme: AppTheme;
   fontFamily: string;
   onDeleteAccount: () => void;
   onLogout: () => void;
@@ -29,9 +26,6 @@ type NotificationKey =
   | 'overdue';
 
 export function SettingsScreen({
-  isDark,
-  onToggleDark,
-  theme,
   fontFamily,
   onDeleteAccount,
   onLogout,
@@ -104,7 +98,7 @@ export function SettingsScreen({
         </View>
 
         <View style={styles.logoWrap}>
-          <SchoolTaskLogo size={88} labelColor={theme.text} />
+          <SchoolTaskLogo width={200} />
         </View>
 
         <View
@@ -113,17 +107,6 @@ export function SettingsScreen({
           <Text style={[styles.headerText, { color: theme.text, fontFamily }]}>
             CONFIGURACIÓN
           </Text>
-        </View>
-
-        <Text style={[styles.sectionTitle, { color: theme.text, fontFamily }]}>
-          TEMA
-        </Text>
-        <View style={styles.row}>
-          <Ionicons name="moon-outline" size={22} color={theme.text} />
-          <Text style={[styles.rowLabel, { color: theme.text, fontFamily }]}>
-            MODO OSCURO
-          </Text>
-          {renderSwitch(isDark, onToggleDark)}
         </View>
 
         <Text style={[styles.sectionTitle, { color: theme.text, fontFamily }]}>
@@ -166,7 +149,6 @@ export function SettingsScreen({
           value={notificationTypes.nextClass}
           onChange={(v) => toggleNotificationType('nextClass', v)}
           disabled={notifControlsDisabled}
-          theme={theme}
           fontFamily={fontFamily}
           renderSwitch={renderSwitch}
         />
@@ -176,7 +158,6 @@ export function SettingsScreen({
           value={notificationTypes.homework}
           onChange={(v) => toggleNotificationType('homework', v)}
           disabled={notifControlsDisabled}
-          theme={theme}
           fontFamily={fontFamily}
           renderSwitch={renderSwitch}
         />
@@ -186,7 +167,6 @@ export function SettingsScreen({
           value={notificationTypes.deadline}
           onChange={(v) => toggleNotificationType('deadline', v)}
           disabled={notifControlsDisabled}
-          theme={theme}
           fontFamily={fontFamily}
           renderSwitch={renderSwitch}
         />
@@ -196,7 +176,6 @@ export function SettingsScreen({
           value={notificationTypes.overdue}
           onChange={(v) => toggleNotificationType('overdue', v)}
           disabled={notifControlsDisabled}
-          theme={theme}
           fontFamily={fontFamily}
           renderSwitch={renderSwitch}
         />
@@ -239,7 +218,6 @@ export function SettingsScreen({
         confirmLabel="DESACTIVAR"
         onCancel={() => setDisableNotifModal(false)}
         onConfirm={confirmDisableNotifications}
-        theme={theme}
         fontFamily={fontFamily}
       />
       <ConfirmModal
@@ -252,7 +230,6 @@ export function SettingsScreen({
           setDeleteModal(false);
           onDeleteAccount();
         }}
-        theme={theme}
         fontFamily={fontFamily}
       />
       <ConfirmModal
@@ -265,7 +242,6 @@ export function SettingsScreen({
           setLogoutModal(false);
           onLogout();
         }}
-        theme={theme}
         fontFamily={fontFamily}
       />
     </SafeAreaView>
@@ -278,7 +254,6 @@ type RowProps = {
   value: boolean;
   onChange: (v: boolean) => void;
   disabled: boolean;
-  theme: AppTheme;
   fontFamily: string;
   renderSwitch: (
     value: boolean,
@@ -293,7 +268,6 @@ function NotificationTypeRow({
   value,
   onChange,
   disabled,
-  theme,
   fontFamily,
   renderSwitch,
 }: RowProps) {
